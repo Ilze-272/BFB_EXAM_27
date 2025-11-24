@@ -256,3 +256,63 @@ def impact():
     """Display impact tracker statistics"""
     conn = get_db_connection()
     
+    # Get impact statistics
+    impact_stats = conn.execute('SELECT * FROM impact_tracker WHERE id = 1').fetchone()
+    
+    # Get category breakdown
+    category_breakdown = conn.execute('''
+        SELECT category, COUNT(*) as count
+        FROM listings
+        GROUP BY category
+        ORDER BY count DESC
+    ''').fetchall()
+    
+    # Get role breakdown
+    role_breakdown = conn.execute('''
+        SELECT u.role, COUNT(DISTINCT u.id) as count
+        FROM users u
+        INNER JOIN listings l ON u.id = l.listed_by
+        GROUP BY u.role
+        ORDER BY count DESC
+    ''').fetchall()
+    
+    conn.close()
+    
+    # Calculate environmental impact
+    total_kg = impact_stats['total_kg_saved']
+    environmental_impact = {
+        'co2_saved': round(total_kg * 3, 1),
+        'water_saved': round(total_kg * 50, 0),
+        'meals_provided': round(total_kg / 2, 0)
+    }
+    
+    return render_template(
+        'impact.html',
+        impact_stats=impact_stats,
+        category_breakdown=category_breakdown,
+        role_breakdown=role_breakdown,
+        environmental_impact=environmental_impact
+    )
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """Handle 404 errors"""
+    flash('The page you are looking for does not exist.', 'warning')
+    return redirect(url_for('index'))
+
+# CLI command to initialize database
+@app.cli.command('init-db')
+def init_db_command():
+    """Initialize the database."""
+    init_db()
+    print('Initialized the database.')
+
+if __name__ == '__main__':
+    # Create upload folder if it doesn't exist
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    
+    # Initialize database if it doesn't exist
+    if not os.path.exists(DATABASE):
+        init_db()
+    
+    app.run(debug=True, port=8000)
