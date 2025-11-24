@@ -308,17 +308,6 @@ The application uses server-side rendering, but these routes are available:
 - `POST /listing/<id>/reserve` - Reserve a listing
 - `GET /impact` - View community impact dashboard
 
-## Contributing
-
-Contributions are welcome! This project is actively being developed. Feel free to submit issues or pull requests.
-
-## License
-
-This project is for educational and demonstration purposes.
-
----
-
-**FoodShare Pretoria** - Fighting Food Waste, One Meal at a Time 🌱
 
 ---
 
