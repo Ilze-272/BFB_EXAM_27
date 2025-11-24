@@ -170,8 +170,155 @@ erDiagram
 - **Error Handling**: Custom 404 handler with user-friendly redirects
 - **Template Inheritance**: Base template with blocks for DRY code
 
+### Frontend Features
+- **Fully Responsive**: Mobile, tablet, and desktop layouts
+- **Dynamic Content**: All data pulled from database via Jinja2
+- **Accessible Navigation**: ARIA attributes and semantic HTML
+- **Visual Indicators**: Badges for reservation status, free items, categories
+- **Form Validation**: HTML5 validation with server-side processing
 
+### User Experience
+- **Reservation System**: 1-hour expiry window for pickups
+- **Impact Tracking**: Real-time statistics updated on each action
+- **Image Support**: Upload and display custom food images
+- **Category Organization**: 7 predefined food categories
 
+## Quick Start
+
+### Prerequisites
+- Python 3.8 or higher
+- pip package manager
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd BFB
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the application**:
+   ```bash
+   python app.py
+   ```
+   
+   The database will be automatically initialized on first run.
+
+4. **Access the application**:
+   Open your browser to [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+### Development Commands
+
+**Initialize/Reset Database**:
+```bash
+rm db/foodshare.db
+python app.py
+```
+
+**Run with Flask CLI**:
+```bash
+export FLASK_APP=app
+flask run --port 8000 --debug
+```
+
+**View Database**:
+```bash
+sqlite3 db/foodshare.db "SELECT * FROM listings;"
+```
+
+## Current Implementation Status
+
+### ✅ Implemented Features
+- Full Flask server-side rendering with Jinja2
+- SQLite database with CRUD operations
+- Dynamic listing browsing and detail pages
+- Functional listing creation with image uploads
+- Working reservation system with 1-hour expiry
+- Impact tracking with live statistics
+- Flash message system for user feedback
+- Responsive Bootstrap 5 UI
+
+### ⚠️ Limitations
+- **Authentication**: No user login (uses hardcoded user IDs)
+- **Authorization**: No role-based access control
+- **Search/Filter**: No search or filtering functionality
+- **Notifications**: No email/SMS alerts for reservations
+- **Maps**: No location-based search or mapping
+- **Payment**: No payment processing for paid items
+- **Admin Panel**: No moderation or admin dashboard
+
+## Next Steps for Production
+
+To make this production-ready:
+
+1. **User Authentication & Authorization**:
+   - Flask-Login for session management
+   - User registration and login system
+   - Role-based access control (donor, recipient, admin)
+   - Password hashing with bcrypt
+
+2. **Enhanced Functionality**:
+   - Search and filter listings (by category, location, price)
+   - Pagination for large listing sets
+   - User profiles with listing history
+   - Rating and review system
+   - Advanced reservation management (cancel, extend)
+
+3. **Production Database**:
+   - Migrate to PostgreSQL or MySQL
+   - Use SQLAlchemy ORM for better database abstraction
+   - Database migrations with Alembic
+   - Connection pooling and optimization
+
+4. **Communication**:
+   - Email notifications for reservations (Flask-Mail)
+   - SMS alerts for expiring reservations (Twilio)
+   - In-app notification system
+
+5. **Advanced Features**:
+   - Google Maps integration for location search
+   - Real-time chat between donors and recipients
+   - Calendar integration for pickup scheduling
+   - Analytics dashboard for users and admins
+   - Mobile app with API backend
+
+6. **Deployment & DevOps**:
+   - Production WSGI server (Gunicorn/uWSGI)
+   - Nginx reverse proxy
+   - SSL/TLS certificates (Let's Encrypt)
+   - Cloud hosting (AWS, Azure, Heroku, DigitalOcean)
+   - CI/CD pipeline (GitHub Actions)
+   - Monitoring and logging (Sentry, DataDog)
+   - Automated backups
+
+## API Endpoints
+
+The application uses server-side rendering, but these routes are available:
+
+- `GET /` - Homepage with impact statistics
+- `GET /listings` - Browse all food listings
+- `GET /listing/<id>` - View single listing detail
+- `GET /create` - Display create listing form
+- `POST /listing/create` - Submit new listing
+- `POST /listing/<id>/reserve` - Reserve a listing
+- `GET /impact` - View community impact dashboard
+
+## Contributing
+
+Contributions are welcome! This project is actively being developed. Feel free to submit issues or pull requests.
+
+## License
+
+This project is for educational and demonstration purposes.
+
+---
+
+**FoodShare Pretoria** - Fighting Food Waste, One Meal at a Time 🌱
 
 ---
 
