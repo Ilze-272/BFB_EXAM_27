@@ -162,3 +162,97 @@ def create_listing():
         expiry_date = request.form.get('expiry_date')
         pickup_window = request.form.get('pickup_window')
         address = request.form.get('address')
+        
+        # Handle file upload
+        image_url = 'images/veggies.svg'  # Default placeholder
+        if 'image' in request.files:
+            file = request.files['image']
+            if file and file.filename and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                # Add timestamp to avoid conflicts
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                filename = f"{timestamp}_{filename}"
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(filepath)
+                image_url = f'uploads/{filename}'
+        
+        # Insert into database (using hardcoded user ID 1 for now)
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute('''
+            INSERT INTO listings (
+                title, description, category, quantity, price, is_free,
+                expiry_date, pickup_window, address, image_url, listed_by
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (
+            title, description, category, quantity, price, is_free,
+            expiry_date, pickup_window, address, image_url, 1
+        ))
+        
+        # Update impact tracker
+        cursor.execute('''
+            UPDATE impact_tracker 
+            SET total_listings = total_listings + 1
+            WHERE id = 1
+        ''')
+        
+        conn.commit()
+        listing_id = cursor.lastrowid
+        conn.close()
+        
+        flash('Listing created successfully!', 'success')
+        return redirect(url_for('listing_detail', id=listing_id))
+        
+    except Exception as e:
+        flash(f'Error creating listing: {str(e)}', 'danger')
+        return redirect(url_for('create_listing_page'))
+
+@app.route('/listing/<int:id>/reserve', methods=['POST'])
+def reserve_listing(id):
+    """Reserve a listing"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # Check if listing exists and is not already reserved
+        existing_reservation = cursor.execute('''
+            SELECT * FROM reservations 
+            WHERE listing_id = ? 
+            AND expires_at > datetime('now')
+        ''', (id,)).fetchone()
+        
+        if existing_reservation:
+            flash('This listing is already reserved.', 'warning')
+            return redirect(url_for('listing_detail', id=id))
+        
+        # Create reservation (expires in 1 hour, using hardcoded user ID 3 for now)
+        expires_at = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
+        
+        cursor.execute('''
+            INSERT INTO reservations (listing_id, reserved_by, expires_at)
+            VALUES (?, ?, ?)
+        ''', (id, 3, expires_at))
+        
+        # Update impact tracker
+        cursor.execute('''
+            UPDATE impact_tracker 
+            SET total_reservations = total_reservations + 1
+            WHERE id = 1
+        ''')
+        
+        conn.commit()
+        conn.close()
+        
+        flash('Listing reserved successfully! You have 1 hour to pick it up.', 'success')
+        return redirect(url_for('listing_detail', id=id))
+        
+    except Exception as e:
+        flash(f'Error reserving listing: {str(e)}', 'danger')
+        return redirect(url_for('listing_detail', id=id))
+
+@app.route('/impact')
+def impact():
+    """Display impact tracker statistics"""
+    conn = get_db_connection()
+    
