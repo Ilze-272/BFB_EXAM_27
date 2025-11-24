@@ -88,25 +88,87 @@ Community impact dashboard with live data:
 
 The SQLite schema (`db/foodshare-schema-seed.sql`) includes:
 
+### Entity Relationship Diagram
 
-### ✅ Implemented Features
-- Full Flask server-side rendering with Jinja2
-- SQLite database with CRUD operations
-- Dynamic listing browsing and detail pages
-- Functional listing creation with image uploads
-- Working reservation system with 1-hour expiry
-- Impact tracking with live statistics
-- Flash message system for user feedback
-- Responsive Bootstrap 5 UI
+```mermaid
+erDiagram
+    users ||--o{ listings : "lists"
+    users ||--o{ reservations : "reserves"
+    listings ||--o{ reservations : "has"
+    
+    users {
+        INTEGER id PK
+        TEXT name
+        TEXT email UK
+        TEXT role
+        TEXT location
+    }
+    
+    listings {
+        INTEGER id PK
+        TEXT title
+        TEXT description
+        TEXT quantity
+        REAL price
+        INTEGER is_free
+        TEXT expiry_date
+        TEXT pickup_window
+        TEXT address
+        TEXT category
+        TEXT image_url
+        INTEGER listed_by FK
+        TEXT created_at
+    }
+    
+    reservations {
+        INTEGER id PK
+        INTEGER listing_id FK
+        INTEGER reserved_by FK
+        TEXT reserved_at
+        TEXT expires_at
+    }
+    
+    impact_tracker {
+        INTEGER id PK
+        REAL total_kg_saved
+        INTEGER total_listings
+        INTEGER total_reservations
+    }
+```
 
-### ⚠️ Limitations
-- **Authentication**: No user login (uses hardcoded user IDs)
-- **Authorization**: No role-based access control
-- **Search/Filter**: No search or filtering functionality
-- **Notifications**: No email/SMS alerts for reservations
-- **Maps**: No location-based search or mapping
-- **Payment**: No payment processing for paid items
-- **Admin Panel**: No moderation or admin dashboard
+### Tables
+- **users**: Donors and recipients (4 sample users)
+- **listings**: Available food items (3 sample listings)
+- **reservations**: Booking records (1 sample reservation)
+- **impact_tracker**: Aggregated impact statistics
+
+### Seed Data
+- **Users**: Bella's Bakery (donor), Green Grocer PTA (donor), FeedPTA Charity (recipient), Jane Smith (individual)
+- **Listings**: Lasagna, Artisan Bread (reserved), Fresh Vegetables
+- **Reservations**: FeedPTA Charity reserved bread from Bella's Bakery
+- **Impact**: 37.5 kg saved, 75 kg CO₂ reduced, 7500 L water conserved
+
+## Technologies
+
+- **Flask**: Python web framework for server-side rendering
+- **Jinja2**: Template engine for dynamic HTML generation
+- **SQLite3**: Lightweight relational database with Row factory
+- **Werkzeug**: File upload handling and security utilities
+- **Python**: datetime module for reservation expiry logic
+- **HTML5**: Semantic markup with accessibility features
+- **CSS3**: Custom styling with CSS variables, flexbox, and grid
+- **Bootstrap 5.3.3**: Responsive grid system, components, and utilities
+- **Bootstrap Icons 1.11.3**: Icon set for UI elements
+
+## Features
+
+### Backend Features
+- **Database Layer**: SQLite connection with Row factory for dict-like access
+- **Auto-initialization**: Database created from schema on first run
+- **File Uploads**: Secure filename handling with timestamp prefixes
+- **Flash Messages**: Bootstrap-styled alerts for user feedback
+- **Error Handling**: Custom 404 handler with user-friendly redirects
+- **Template Inheritance**: Base template with blocks for DRY code
 
 
 
