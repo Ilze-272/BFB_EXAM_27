@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Available Food Listings - FoodShare Pretoria{% endblock %}
+
+{% block meta_description %}Browse available food listings in Pretoria. Help reduce food waste by reserving surplus food from restaurants, shops, and community members.{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Page Header -->
+        <header class="mb-4">
+            <h1 class="display-5 fw-bold text-center mb-2">Available Food Listings</h1>
+            <p class="text-center text-muted">Help reduce food waste in Pretoria - Reserve fresh food for pickup</p>
+        </header>
+
+        <!-- Listings Grid -->
+        <div class="row g-4">
+            {% for listing in listings %}
+            <article class="col-12 col-md-6 col-lg-4">
+                <div class="card listing-card">
+                    <img src="{{ url_for('static', filename=listing.image_url) }}" class="card-img-top" alt="{{ listing.title }}">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge badge-category {{ listing.category|lower|replace(' ', '-') }}">{{ listing.category }}</span>
+                            {% if listing.is_free %}
+                            <span class="badge badge-free">FREE</span>
+                            {% else %}
+                            <span class="badge badge-price">R {{ "%.2f"|format(listing.price) }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <h2 class="h5">
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" class="listing-card-title">{{ listing.title }}</a>
+                        </h2>
+                        
+                        <p class="listing-card-description">
+                            {{ listing.description }}
+                        </p>
+                        
+                        <div class="listing-card-meta">
+                            <i class="bi bi-box-seam"></i> <strong>Quantity:</strong> {{ listing.quantity }}
+                        </div>
+                        
+                        <div class="listing-card-meta">
+                            <i class="bi bi-calendar-x"></i> <strong>Expires:</strong> {{ listing.expiry_date }}
+                        </div>
+                        
+                        <div class="listing-card-meta">
+                            <i class="bi bi-clock"></i> <strong>Pickup:</strong> {{ listing.pickup_window }}
+                        </div>
+                        
+                        <div class="listing-card-meta mb-3">
+                            <i class="bi bi-geo-alt"></i> <strong>Location:</strong> {{ listing.address }}
+                        </div>
+                        
+                        {% if listing.reservation %}
+                        <!-- Reserved Badge -->
+                        <div class="alert alert-warning mb-3 py-2 px-3" role="status">
+                            <i class="bi bi-hourglass-split"></i>
+                            <strong>Reserved</strong> — until {{ listing.reservation.expires_at }}
+                        </div>
+                        
+                        <div class="d-grid">
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-outline-primary" role="button">View Details</a>
+                        </div>
+                        {% else %}
+                        <div class="d-grid">
+                            <a href="{{ url_for('listing_detail', id=listing.id) }}" class="btn btn-primary" role="button">Reserve</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
