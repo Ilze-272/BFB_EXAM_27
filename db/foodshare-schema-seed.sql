@@ -61,13 +61,3 @@ VALUES
 (1, 'Leftover Lasagna Trays', 'Freshly cooked lasagna portions from today''s lunch service.', '4 trays', 25.00, 0, '2025-10-25', '17:00 - 20:00', '123 Church St, Hatfield', 'Prepared Meals', 'images/lasagna.svg', 1),
 (2, 'Day-old Bread Loaves', 'Assorted artisan loaves, still great for toasting.', '10 loaves', 0.00, 1, '2025-10-24', '09:00 - 18:00', '45 Market Rd, Brooklyn', 'Bakery', 'images/bread.svg', 2),
 (3, 'Surplus Vegetables Box', 'Mixed vegetables from local suppliers.', '10 kg', 50.00, 0, '2025-10-26', '10:00 - 14:00', '7 Union St, Arcadia', 'Produce', 'images/veggies.svg', 2);
-
-
--- RESERVATIONS
-INSERT INTO reservations (listing_id, reserved_by, reserved_at, expires_at)
-VALUES (2, 3, '2025-10-23 09:00:00', '2025-10-23 10:00:00');
-
-
--- IMPACT_TRACKER
-INSERT INTO impact_tracker (id, total_kg_saved, total_listings, total_reservations)
-VALUES (1, 37.5, 3, 8);
