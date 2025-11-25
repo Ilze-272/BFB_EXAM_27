@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Impact Tracker - FoodShare Pretoria{% endblock %}
+
+{% block meta_description %}FoodShare Pretoria Impact Tracker - See how we're reducing food waste together{% endblock %}
+
+{% block content %}
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Page Header -->
+        <header class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-2">Our Community Impact</h1>
+            <p class="lead text-muted">Together we're making a difference in reducing food waste across Pretoria</p>
+        </header>
+
+        <!-- Main Impact Statistics -->
+        <section class="impact-card">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="impact-stat">
+                        <div class="impact-stat-value">
+                            <i class="bi bi-award-fill"></i> {{ impact_stats.total_kg_saved }}
+                        </div>
+                        <div class="impact-stat-label">KG Food Saved</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="impact-stat border-start border-end border-white">
+                        <div class="impact-stat-value">
+                            <i class="bi bi-list-ul"></i> {{ impact_stats.total_listings }}
+                        </div>
+                        <div class="impact-stat-label">Active Listings</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="impact-stat">
+                        <div class="impact-stat-value">
+                            <i class="bi bi-check-circle-fill"></i> {{ impact_stats.total_reservations }}
+                        </div>
+                        <div class="impact-stat-label">Total Reservations</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breakdown by Category -->
+        <div class="row mt-5">
+            <div class="col-lg-6 mb-4">
+                <article class="breakdown-card h-100">
+                    <h2 class="h4 mb-4">
+                        <i class="bi bi-pie-chart-fill text-primary"></i> Breakdown by Category
+                    </h2>
+                    
+                    {% for item in category_breakdown %}
+                    <div class="breakdown-item">
+                        <div>
+                            <span class="badge badge-category {{ item.category|lower|replace(' ', '-') }} me-2">{{ item.category }}</span>
+                            <span class="breakdown-label">{{ item.category }}</span>
+                        </div>
+                        <span class="breakdown-value">{{ item.count }}</span>
+                    </div>
+                    {% endfor %}
+                </article>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <article class="breakdown-card h-100">
+                    <h2 class="h4 mb-4">
+                        <i class="bi bi-people-fill text-primary"></i> Contributors by Role
+                    </h2>
+                    
+                    {% for item in role_breakdown %}
+                    <div class="breakdown-item">
+                        <div>
+                            {% if item.role == 'restaurant' %}
+                            <i class="bi bi-shop text-warning me-2 fs-5"></i>
+                            <span class="breakdown-label">Restaurants</span>
+                            {% elif item.role == 'shop' %}
+                            <i class="bi bi-cart3 text-info me-2 fs-5"></i>
+                            <span class="breakdown-label">Shops</span>
+                            {% elif item.role == 'charity' %}
+                            <i class="bi bi-heart text-danger me-2 fs-5"></i>
+                            <span class="breakdown-label">Charities</span>
+                            {% else %}
+                            <i class="bi bi-person text-success me-2 fs-5"></i>
+                            <span class="breakdown-label">Individuals</span>
+                            {% endif %}
+                        </div>
+                        <span class="breakdown-value">{{ item.count }}</span>
+                    </div>
+                    {% endfor %}
+                </article>
+            </div>
+        </div>
+
+        <!-- Environmental Impact -->
+        <section class="row mt-4">
+            <div class="col-12">
+                <div class="card border-success">
+                    <div class="card-body p-4">
+                        <h2 class="h4 mb-3">
+                            <i class="bi bi-globe-americas text-success"></i> Environmental Impact
+                        </h2>
+                        <p class="mb-3">By saving <strong>{{ impact_stats.total_kg_saved }} kg</strong> of food from going to waste, our community has prevented:</p>
+                        
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-cloud-fill fs-1 text-primary d-block mb-2"></i>
+                                    <h3 class="h2 mb-1">~{{ environmental_impact.co2_saved }}</h3>
+                                    <p class="small text-muted mb-0">kg CO₂ emissions<br><span class="text-muted">(estimated)</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3 mb-md-0">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-droplet-fill fs-1 text-info d-block mb-2"></i>
+                                    <h3 class="h2 mb-1">~{{ environmental_impact.water_saved|int }}</h3>
+                                    <p class="small text-muted mb-0">liters of water saved<br><span class="text-muted">(estimated)</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <i class="bi bi-tree-fill fs-1 text-success d-block mb-2"></i>
+                                    <h3 class="h2 mb-1">~{{ environmental_impact.meals_provided|int }}</h3>
+                                    <p class="small text-muted mb-0">meals provided<br><span class="text-muted">(based on 2kg/meal)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="text-center mt-5 mb-4">
+            <div class="card bg-primary text-white border-0">
+                <div class="card-body p-5">
+                    <h2 class="h3 mb-3">Join the Movement!</h2>
+                    <p class="lead mb-4">Help us reach our goal of saving 1,000 kg of food by the end of the year.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{{ url_for('create_listing_page') }}" class="btn btn-light btn-lg px-4">
+                            <i class="bi bi-plus-circle"></i> List Your Food
+                        </a>
+                        <a href="{{ url_for('browse_listings') }}" class="btn btn-outline-light btn-lg px-4">
+                            <i class="bi bi-search"></i> Browse Listings
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
