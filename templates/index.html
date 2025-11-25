@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}FoodShare Pretoria - Fighting Food Waste Together{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <img src="{{ url_for('static', filename='images/hero-banner.svg') }}" alt="FoodShare community connecting people to reduce food waste" class="hero-image">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h1 class="hero-title">Fighting Food Waste,<br>One Meal at a Time</h1>
+                        <p class="hero-subtitle">Connect surplus food with people who need it across Pretoria</p>
+                        <div class="hero-cta">
+                            <a href="{{ url_for('browse_listings') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-search"></i> Find Food Near You
+                            </a>
+                            <a href="{{ url_for('create_listing_page') }}" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-plus-circle"></i> Share Your Surplus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ impact_stats.total_kg_saved }}</span>
+                        <span class="stat-label">KG Food Saved</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ impact_stats.total_listings }}</span>
+                        <span class="stat-label">Active Listings</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ impact_stats.total_reservations }}</span>
+                        <span class="stat-label">Total Reservations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Introduction Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="section-title text-center">Welcome to FoodShare Pretoria</h2>
+                        <p class="section-subtitle text-center">
+                            FoodShare is a community-driven platform connecting restaurants, shops, charities, and individuals 
+                            to reduce food waste in Pretoria. We believe that no good food should go to waste when there are 
+                            people who could benefit from it.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mt-4">
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <i class="bi bi-shop-window feature-icon"></i>
+                            <h3 class="feature-title">For Businesses</h3>
+                            <p class="feature-description">
+                                Restaurants and shops can list surplus food instead of throwing it away, 
+                                helping the community while reducing waste.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <i class="bi bi-heart feature-icon"></i>
+                            <h3 class="feature-title">For Charities</h3>
+                            <p class="feature-description">
+                                Charities can find and reserve food donations to support those in need, 
+                                ensuring resources reach the right people.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card">
+                            <i class="bi bi-people feature-icon"></i>
+                            <h3 class="feature-title">For Individuals</h3>
+                            <p class="feature-description">
+                                Community members can discover affordable or free food items, 
+                                helping families save money and reduce household waste.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Background Section -->
+        <section class="content-section bg-light-custom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <h2 class="section-title text-start">The Food Waste Challenge</h2>
+                        <p class="mb-3">
+                            <strong>In South Africa, approximately 10 million tonnes of food is wasted every year.</strong> 
+                            This happens at every stage—from production to consumption—while millions of people face food insecurity.
+                        </p>
+                        <p class="mb-3">
+                            In Pretoria alone, restaurants, shops, and households dispose of edible food daily. 
+                            Meanwhile, many individuals and families struggle to access nutritious meals.
+                        </p>
+                        <p class="mb-0">
+                            FoodShare bridges this gap by creating a simple, efficient way to connect surplus food 
+                            with those who need it most, right here in our community.
+                        </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="value-item bg-white rounded p-3 shadow-sm">
+                                    <i class="bi bi-globe-africa value-icon"></i>
+                                    <div class="value-title">Environmental Impact</div>
+                                    <p class="value-description mb-0">Reduce CO₂ emissions and conserve water</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="value-item bg-white rounded p-3 shadow-sm">
+                                    <i class="bi bi-currency-dollar value-icon"></i>
+                                    <div class="value-title">Economic Savings</div>
+                                    <p class="value-description mb-0">Save money for givers and recipients</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="value-item bg-white rounded p-3 shadow-sm">
+                                    <i class="bi bi-people-fill value-icon"></i>
+                                    <div class="value-title">Social Impact</div>
+                                    <p class="value-description mb-0">Support food security in our community</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="value-item bg-white rounded p-3 shadow-sm">
+                                    <i class="bi bi-arrow-repeat value-icon"></i>
+                                    <div class="value-title">Circular Economy</div>
+                                    <p class="value-description mb-0">Keep resources in use longer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title text-center">How It Works</h2>
+                <p class="section-subtitle text-center">
+                    Three simple steps to start making a difference
+                </p>
+                
+                <div class="row g-4 mt-4">
+                    <div class="col-lg-4">
+                        <div class="step-card">
+                            <div class="step-number">1</div>
+                            <i class="bi bi-plus-circle feature-icon text-primary"></i>
+                            <h3 class="step-title">List Your Food</h3>
+                            <p class="step-description">
+                                Restaurants, shops, or individuals create a listing with details about surplus food, 
+                                including quantity, expiry date, and pickup location.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="step-card">
+                            <div class="step-number">2</div>
+                            <i class="bi bi-search feature-icon text-success"></i>
+                            <h3 class="step-title">Find & Reserve</h3>
+                            <p class="step-description">
+                                Browse available listings in your area. Reserve items you need—whether free or 
+                                at a reduced price—and get pickup details instantly.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="step-card">
+                            <div class="step-number">3</div>
+                            <i class="bi bi-bag-check feature-icon text-info"></i>
+                            <h3 class="step-title">Collect & Enjoy</h3>
+                            <p class="step-description">
+                                Pick up your reserved food during the specified time window. Good food finds 
+                                a new home, and waste is prevented!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section class="content-section bg-light-custom">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h2 class="section-title text-center">About FoodShare</h2>
+                        <div class="row mt-5">
+                            <div class="col-md-6 mb-4">
+                                <article>
+                                    <h3 class="h4 mb-3">
+                                        <i class="bi bi-bullseye text-primary me-2"></i> Our Mission
+                                    </h3>
+                                    <p>
+                                        To create a sustainable food-sharing ecosystem in Pretoria that connects surplus food 
+                                        with people who need it, reducing waste while strengthening our community.
+                                    </p>
+                                </article>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <article>
+                                    <h3 class="h4 mb-3">
+                                        <i class="bi bi-eye text-primary me-2"></i> Our Vision
+                                    </h3>
+                                    <p>
+                                        A Pretoria where no edible food goes to waste, where businesses and individuals work 
+                                        together to ensure everyone has access to nutritious meals, and where sustainability 
+                                        is part of our daily lives.
+                                    </p>
+                                </article>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h3 class="h4 mb-3">
+                                <i class="bi bi-award text-primary me-2"></i> Our Values
+                            </h3>
+                            <div class="row">
+                                <div class="col-md-3 col-6 mb-3">
+                                    <div class="value-item">
+                                        <i class="bi bi-hand-thumbs-up value-icon"></i>
+                                        <div class="value-title">Community First</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-3">
+                                    <div class="value-item">
+                                        <i class="bi bi-recycle value-icon"></i>
+                                        <div class="value-title">Sustainability</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-3">
+                                    <div class="value-item">
+                                        <i class="bi bi-transparency value-icon"></i>
+                                        <div class="value-title">Transparency</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-3">
+                                    <div class="value-item">
+                                        <i class="bi bi-shield-check value-icon"></i>
+                                        <div class="value-title">Safety</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Make a Difference?</h2>
+                <p>Join our growing community of food waste fighters in Pretoria</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{{ url_for('browse_listings') }}" class="btn btn-light btn-lg">
+                        <i class="bi bi-search"></i> Browse Available Food
+                    </a>
+                    <a href="{{ url_for('create_listing_page') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-plus-circle"></i> List Your Surplus
+                    </a>
+                    <a href="{{ url_for('impact') }}" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-graph-up-arrow"></i> See Our Impact
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
