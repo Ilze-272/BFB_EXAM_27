@@ -125,3 +125,101 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Expiry Date -->
+                        <div class="mb-4">
+                            <label for="expiry_date" class="form-label">
+                                Expiry Date <span class="text-danger">*</span>
+                            </label>
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                id="expiry_date" 
+                                name="expiry_date" 
+                                required
+                                aria-required="true"
+                            >
+                            <div class="form-text">When will this food expire or no longer be fresh?</div>
+                        </div>
+
+                        <!-- Pickup Window -->
+                        <div class="mb-4">
+                            <label for="pickup_window" class="form-label">
+                                Pickup Window <span class="text-danger">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="pickup_window" 
+                                name="pickup_window" 
+                                placeholder="E.g., 09:00 - 18:00, or After 5pm" 
+                                required
+                                aria-required="true"
+                            >
+                            <div class="form-text">Specify when recipients can pick up the items</div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-4">
+                            <label for="address" class="form-label">
+                                Pickup Address <span class="text-danger">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="address" 
+                                name="address" 
+                                placeholder="Street address, Suburb, Pretoria" 
+                                required
+                                aria-required="true"
+                            >
+                            <div class="form-text">Full address where items can be collected</div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="mb-4">
+                            <label for="image" class="form-label">
+                                Upload Image
+                            </label>
+                            <input 
+                                class="form-control" 
+                                type="file" 
+                                id="image" 
+                                name="image" 
+                                accept="image/*"
+                                aria-describedby="imageHelp"
+                            >
+                            <div id="imageHelp" class="form-text">Add a photo of the food items (JPG, PNG, max 5MB)</div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-between mt-5">
+                            <a href="{{ url_for('browse_listings') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="bi bi-check-circle"></i> Create Listing
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Information Card -->
+                <div class="card mt-4 border-primary">
+                    <div class="card-body">
+                        <h2 class="h5 card-title">
+                            <i class="bi bi-info-circle text-primary"></i> Listing Guidelines
+                        </h2>
+                        <ul class="mb-0">
+                            <li>Ensure all food items are safe for consumption</li>
+                            <li>Be honest about expiry dates and food condition</li>
+                            <li>Provide accurate pickup times and location</li>
+                            <li>Respond promptly to reservation requests</li>
+                            <li>Update or remove listings if items are no longer available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
