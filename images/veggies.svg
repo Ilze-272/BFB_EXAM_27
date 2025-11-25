@@ -1,0 +1,20 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#90EE90"/>
+  <circle cx="200" cy="200" r="80" fill="#FF6347"/>
+  <circle cx="195" cy="195" r="75" fill="#FF4500"/>
+  <rect x="195" y="140" width="10" height="30" fill="#228B22"/>
+  <circle cx="500" cy="200" r="70" fill="#FFA500"/>
+  <circle cx="500" cy="200" r="60" fill="#FF8C00"/>
+  <path d="M 500 140 L 520 160 L 500 180 L 480 160 Z" fill="#228B22"/>
+  <ellipse cx="300" cy="400" rx="60" ry="100" fill="#9370DB"/>
+  <ellipse cx="300" cy="380" rx="55" ry="90" fill="#8A2BE2"/>
+  <rect x="295" y="290" width="10" height="40" fill="#228B22"/>
+  <ellipse cx="600" cy="400" rx="90" ry="70" fill="#32CD32"/>
+  <ellipse cx="600" cy="390" rx="80" ry="60" fill="#228B22"/>
+  <path d="M 600 330 Q 620 340 630 360" stroke="#006400" stroke-width="4" fill="none"/>
+  <path d="M 600 330 Q 580 340 570 360" stroke="#006400" stroke-width="4" fill="none"/>
+  <circle cx="150" cy="450" r="50" fill="#FF6347"/>
+  <circle cx="150" cy="450" r="40" fill="#FF4500"/>
+  <rect x="145" y="405" width="10" height="25" fill="#228B22"/>
+  <text x="400" y="560" font-family="Arial, sans-serif" font-size="32" fill="#006400" text-anchor="middle" font-weight="bold">Fresh Vegetables</text>
+</svg>
